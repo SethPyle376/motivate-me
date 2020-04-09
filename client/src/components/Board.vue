@@ -1,5 +1,18 @@
 <template>
-    <div id="test">
+    <div id="board_content">
+        <v-app-bar
+        app
+        clipped-left
+        >
+        <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+        <v-toolbar-title>Motivate Me</v-toolbar-title>
+        </v-app-bar>
+        <v-navigation-drawer
+        v-model="drawer"
+        app
+        clipped
+        >
+        </v-navigation-drawer>
         <v-card v-for="item in items" :key="item.message" class="d-inline-block mx-auto mr-6 mt-12">
             <v-container>
                 <v-row justify="space-between">
@@ -22,9 +35,6 @@
                 {{ item.message }}
             </v-container>
         </v-card>
-        <v-btn @click="login()">
-            Login
-        </v-btn>
     </div>
 </template>
 
@@ -32,6 +42,7 @@
 export default {
     data () {
         return {
+            drawer: false,
             items: [
                 {
                     message: "hello"
@@ -55,15 +66,6 @@ export default {
         }
     },
     methods: {
-        login: function() {
-            console.log(this.$gAuth)
-            this.$gAuth.getAuthCode().then(response => {
-                // Send to server
-                console.log(response)
-            }).catch(error => {
-                console.log(error)
-            })
-        }
     }
 }
 </script>
