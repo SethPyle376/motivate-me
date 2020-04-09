@@ -1,10 +1,7 @@
 import express from 'express'
 import history from 'connect-history-api-fallback'
-
 import { login } from './src/login.js'
-
 import dotenv from 'dotenv'
-
 dotenv.config()
 
 var app = express()

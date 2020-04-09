@@ -1,0 +1,15 @@
+version: '3'
+services:
+    web:
+        build: .
+        ports:
+            - "8080:8080"
+        environment:
+            - VUE_APP_G_CLIENT_ID=370192615514-kvpjhdd8fv37ioe9ihopq0j4s6shvjoq.apps.googleusercontent.com
+            - PORT=8080
+    #     depends_on: 
+    #         - db
+    # db:
+    #     image: postgres:latest
+    #     ports:
+    #         - "5432:5432"
