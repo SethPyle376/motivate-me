@@ -22,6 +22,9 @@
                 {{ item.message }}
             </v-container>
         </v-card>
+        <v-btn @click="login()">
+            Login
+        </v-btn>
     </div>
 </template>
 
@@ -37,18 +40,29 @@ export default {
                     message: "world"
                 },
                 {
-                    message: "hello"
+                    message: "my"
                 },
                 {
-                    message: "world"
+                    message: "name"
                 },             
                 {
-                    message: "hello"
+                    message: "is"
                 },
                 {
-                    message: "world"
+                    message: "seth"
                 }
             ]
+        }
+    },
+    methods: {
+        login: function() {
+            console.log(this.$gAuth)
+            this.$gAuth.getAuthCode().then(response => {
+                // Send to server
+                console.log(response)
+            }).catch(error => {
+                console.log(error)
+            })
         }
     }
 }
