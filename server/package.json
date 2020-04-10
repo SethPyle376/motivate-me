@@ -6,13 +6,17 @@
   "type": "module",
   "scripts": {
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "local:docker": "docker-compose up -d",
+    "local:db_setup": "bash bin/db_setup.sh"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "connect-history-api-fallback": "^1.6.0",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^8.0.2"
   }
 }

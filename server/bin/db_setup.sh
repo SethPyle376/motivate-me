@@ -1,0 +1,2 @@
+docker-compose exec -e "PGPASSWORD=dev_pass" db psql -U "dev_user" -d "motivate_me" -f "/db/MM1.1__setup.sql"
+docker-compose exec -e "PGPASSWORD=dev_pass" db psql -U "dev_user" -d "motivate_me" -f "/db/MM1.2__data.sql"
