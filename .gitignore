@@ -21,3 +21,5 @@ yarn-error.log*
 *.sw?
 
 .envrc
+frontend.env
+frontend.env
