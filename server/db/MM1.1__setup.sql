@@ -6,7 +6,9 @@ create table if not exists identity.user (
     first_name VARCHAR,
     last_name VARCHAR,
     email VARCHAR,
-    created_on TIMESTAMP NOT NULL DEFAULT transaction_timestamp()
+    created_on TIMESTAMP NOT NULL DEFAULT transaction_timestamp(),
+
+    unique(email)
 );
 
 create table if not exists content.board (

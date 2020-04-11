@@ -12,6 +12,9 @@ services:
             - PGPASSWORD=dev_pass
             - PGDATABASE=motivate_me
             - JWT_SECRET=abc123
+            - G_CLIENT_ID=YOUR_CLIENT_ID
+            - G_CLIENT_SECRET=YOUR_CLIENT_SECRET
+            - G_CLIENT_REDIRECT_URI=http://localhost:8080
         depends_on: 
             - db
     db:
