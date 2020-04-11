@@ -1,7 +1,7 @@
 create schema if not exists identity;
 create schema if not exists content;
 
-create table if not exists identity.users (
+create table if not exists identity.user (
     id SERIAL PRIMARY KEY,
     first_name VARCHAR,
     last_name VARCHAR,
@@ -9,9 +9,17 @@ create table if not exists identity.users (
     created_on TIMESTAMP NOT NULL DEFAULT transaction_timestamp()
 );
 
-create table if not exists content.links (
+create table if not exists content.board (
     id SERIAL PRIMARY KEY,
-    user_id BIGINT NOT NULL REFERENCES identity.users(id),
+    user_id BIGINT NOT NULL REFERENCES identity.user(id),
+    name VARCHAR NOT NULL,
+    private BOOLEAN NOT NULL
+);
+
+create table if not exists content.link (
+    id SERIAL PRIMARY KEY,
+    user_id BIGINT NOT NULL REFERENCES identity.user(id),
+    board_id BIGINT NOT NULL REFERENCES content.board(id),
     link VARCHAR,
     description VARCHAR
 );
