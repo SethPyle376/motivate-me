@@ -8,13 +8,11 @@
                 align-center
                 justify-center
             >
-
                 <v-flex
                     xs-12
                     sm8
                     md4
                 >
-
                     <v-card class="elevation-12" align="center" justify="center">
                         <v-toolbar>
                             <v-toolbar-title>Welcome to Motivate Me</v-toolbar-title>
@@ -30,12 +28,19 @@
 </template>
 
 <script>
+
+const client = require('../client.js')
+
 export default {
     methods: {
         login: function() {
             this.$gAuth.getAuthCode().then(response => {
                 console.log(response)
-                this.$router.push('/app')
+                if (response) {
+                    client.post('/login', {
+                        "authCode": response
+                    })
+                }
             })
         }
     }
