@@ -30,6 +30,7 @@
 <script>
 
 const client = require('../client.js')
+const jwt = require('jsonwebtoken')
 
 export default {
     methods: {
@@ -39,6 +40,13 @@ export default {
                 if (response) {
                     client.post('/login', {
                         "authCode": response
+                    }).then(response => {
+                        if (response.status == 200) {
+                            localStorage.setItem("user_token", response.data.token)
+                            console.log(jwt.decode(response.data.token))
+                        } else {
+                            // Error handling here
+                        }
                     })
                 }
             })

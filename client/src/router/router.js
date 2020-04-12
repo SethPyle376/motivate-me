@@ -12,7 +12,13 @@ const routes = [
   {
     path: '/app',
     name: 'board_app',
-    component: () => import(/* webpackChunkName: "about" */ '../components/Board.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../components/Layout.vue'),
+    children : [
+      {
+        path: 'board/:boardId',
+        component: () => import('../components/Board.vue')
+      }
+    ]
   },
   {
     path: '/login',

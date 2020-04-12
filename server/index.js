@@ -1,6 +1,6 @@
 import express from 'express'
 import history from 'connect-history-api-fallback'
-import { getBoard } from './src/board.js'
+import { getBoard, getBoards } from './src/board.js'
 import { login } from './src/login.js'
 import bodyParser from 'body-parser'
 import dotenv from 'dotenv'
@@ -18,6 +18,11 @@ app.post('/api/login', async (req, res) => {
     res.send({
         token: loginResult
     })
+})
+
+app.get('/api/boards/:userId', async(req, res) => {
+    const rows = await getBoards(req.params.userId)
+    res.send(rows)
 })
 
 app.get('/api/board/:clientId/:boardName', async (req, res) => {

@@ -1,18 +1,5 @@
 <template>
     <div id="board_content">
-        <v-app-bar
-        app
-        clipped-left
-        >
-        <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-        <v-toolbar-title>Motivate Me</v-toolbar-title>
-        </v-app-bar>
-        <v-navigation-drawer
-        v-model="drawer"
-        app
-        clipped
-        >
-        </v-navigation-drawer>
         <v-card v-for="item in items" :key="item.message" class="d-inline-block mx-auto mr-6 mt-12">
             <v-container>
                 <v-row justify="space-between">
@@ -39,6 +26,8 @@
 </template>
 
 <script>
+const client = require('../client.js')
+
 export default {
     data () {
         return {
@@ -66,6 +55,9 @@ export default {
         }
     },
     methods: {
+    },
+    created: () => {
+        client.get(`/`)
     }
 }
 </script>
