@@ -10,14 +10,14 @@ var app = express()
 
 app.use(bodyParser.json())
 
-app.post('/api/login', (req, res) => {
+app.post('/api/login', async (req, res) => {
     console.log(req.body.authCode)
-    const loginResult = login(req.body.authCode)
-    if (loginResult) {
-        res.sendStatus(200)
-    } else {
-        res.sendStatus(401)
-    }
+    const loginResult = await login(req.body.authCode).catch((err) => {
+        res.sendStatus(500)
+    })
+    res.send({
+        token: loginResult
+    })
 })
 
 app.get('/api/board/:clientId/:boardName', async (req, res) => {
