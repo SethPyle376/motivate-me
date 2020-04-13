@@ -42,8 +42,10 @@ export default {
                         "authCode": response
                     }).then(response => {
                         if (response.status == 200) {
+                            const user = jwt.decode(response.data.token)
                             localStorage.setItem("user_token", response.data.token)
-                            console.log(jwt.decode(response.data.token))
+                            client.defaults.headers.common["Authorization"] = response.data.token
+                            this.$router.push(`/app/board/${user.id}`)
                         } else {
                             // Error handling here
                         }

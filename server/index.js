@@ -1,5 +1,6 @@
 import express from 'express'
 import history from 'connect-history-api-fallback'
+import jwt from 'jsonwebtoken'
 import { getBoard, getBoards } from './src/board.js'
 import { login } from './src/login.js'
 import bodyParser from 'body-parser'
@@ -10,8 +11,21 @@ var app = express()
 
 app.use(bodyParser.json())
 
+app.use('/api', (req, res, next) => {
+    if (req.headers.authorization && req.headers.authorization !== "") {
+        try {
+            const profile = jwt.verify(req.headers.authorization, process.env.JWT_SECRET)
+            req.headers.verifiedProfile = profile
+            next()
+        } catch(error) {
+            res.sendStatus(401)
+        }
+    } else {
+        next()
+    }
+})
+
 app.post('/api/login', async (req, res) => {
-    console.log(req.body.authCode)
     const loginResult = await login(req.body.authCode).catch((err) => {
         res.sendStatus(500)
     })

@@ -48,7 +48,11 @@ export default {
         loadBoards: function() {
             if (localStorage.getItem("user_token")) {
                 const profile = jwt.decode(localStorage.getItem("user_token"))
-                client.get(`/boards/${profile.id}`).then(response => {
+                client.get(`/boards/${profile.id}`).then((error, response) => {
+                    if (response.status == 401) {
+                        localStorage.removeItem("user_token")
+                        this.$router.push("/login")
+                    }
                     console.log(response)
                     response.data.forEach(board => {
                         this.boards.push(board)
@@ -57,7 +61,7 @@ export default {
             }
         }
     },
-    mounted: function() {
+    created: function() {
         this.loadBoards()
     }
 }
