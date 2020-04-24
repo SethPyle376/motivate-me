@@ -6,3 +6,6 @@ values (1, 'Goals', FALSE);
 
 insert into content.link(user_id, board_id, link, description)
 values (1, 1, 'https://www.well-played.com.au/wp-content/uploads/2019/06/Bethesda-logo-1080.png', 'Bethesda Softworks');
+
+insert into content.link(user_id, board_id, link, description)
+values (1, 1, 'https://photos.zillowstatic.com/cc_ft_768/ISrheom2krf4lj1000000000.webp', 'Springfield House');

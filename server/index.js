@@ -2,6 +2,7 @@ import express from 'express'
 import history from 'connect-history-api-fallback'
 import jwt from 'jsonwebtoken'
 import { getBoard, getBoards } from './src/board.js'
+import { getItems } from './src/item.js'
 import { login } from './src/login.js'
 import bodyParser from 'body-parser'
 import dotenv from 'dotenv'
@@ -39,8 +40,8 @@ app.get('/api/boards/:userId', async(req, res) => {
     res.send(rows)
 })
 
-app.get('/api/board/:clientId/:boardName', async (req, res) => {
-    const rows = await getBoard(req.params.clientId, req.params.boardName)
+app.get('/api/board/:clientId/:boardId', async (req, res) => {
+    const rows = await getItems(req.params.clientId, req.params.boardId)
     res.send(rows)
 })
 

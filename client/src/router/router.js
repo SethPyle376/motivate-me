@@ -15,7 +15,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../components/Layout.vue'),
     children : [
       {
-        path: 'board/:boardId',
+        path: 'board/:userId/:boardId',
         component: () => import('../components/Board.vue')
       }
     ]
