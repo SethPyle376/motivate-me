@@ -22,24 +22,34 @@
                 {{ item.description }}
             </v-container>
         </v-card>
+        <v-btn fab fixed right bottom @click="addLinkDialog = true">
+            <v-icon dark>mdi-plus</v-icon>
+        </v-btn>
+        <AddLinkDialog :show=addLinkDialog @refresh="loadItems()" @dialog-closed="addLinkDialog = false"/>
     </div>
 </template>
 
 <script>
 const client = require('../client.js')
 
+import AddLinkDialog from './AddLinkDialog'
+
 export default {
+    components: {
+        AddLinkDialog
+    },
     data () {
         return {
             drawer: false,
-            items:[]
+            items:[],
+            addLinkDialog: false
         }
     },
     methods: {
         loadItems: function() {
+            this.items = []
             const boardId = this.$route.params.boardId
-            const userId = this.$route.params.userId
-            client.get(`/board/${userId}/${boardId}`).then(response => {
+            client.get(`/board/${boardId}`).then(response => {
                 response.data.forEach(item => {
                     this.items.push(item)
                 })

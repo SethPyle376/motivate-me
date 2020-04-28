@@ -2,7 +2,7 @@ import express from 'express'
 import history from 'connect-history-api-fallback'
 import jwt from 'jsonwebtoken'
 import { getBoard, getBoards } from './src/board.js'
-import { getItems } from './src/item.js'
+import { getItems, addItem } from './src/item.js'
 import { login } from './src/login.js'
 import bodyParser from 'body-parser'
 import dotenv from 'dotenv'
@@ -35,13 +35,36 @@ app.post('/api/login', async (req, res) => {
     })
 })
 
+app.post('/api/board/:boardId', async (req, res) => {
+    const newLink = req.body.link
+    const newDescription = req.body.description
+    const profile = req.headers.verifiedProfile
+    if (profile) {
+        const userId = profile.id
+        const boardId = req.params.boardId
+
+        const board = await getBoard(userId, boardId)
+        console.log(board)
+
+        if (!board || board.length < 1) {
+            res.sendStatus(401)
+            return
+        }
+
+        addItem(boardId, userId, newLink, newDescription)
+        res.sendStatus(200)
+    } else {
+        res.sendStatus(401)
+    }
+})
+
 app.get('/api/boards/:userId', async(req, res) => {
     const rows = await getBoards(req.params.userId)
     res.send(rows)
 })
 
-app.get('/api/board/:clientId/:boardId', async (req, res) => {
-    const rows = await getItems(req.params.clientId, req.params.boardId)
+app.get('/api/board/:boardId', async (req, res) => {
+    const rows = await getItems(req.params.boardId)
     res.send(rows)
 })
 

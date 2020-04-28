@@ -25,11 +25,7 @@
                 </v-list-item>
             </v-list>
         </v-navigation-drawer>
-        <v-content>
-            <v-container fluid>
-                <router-view></router-view>
-            </v-container>
-        </v-content>
+        <router-view></router-view>
     </div>
 </template>
 
