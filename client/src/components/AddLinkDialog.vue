@@ -66,6 +66,7 @@ export default {
         "link": this.linkInfo.link,
         "description": this.linkInfo.description
       }).then(result => {
+        console.log(result)
         this.$emit('refresh', true)
         this.dialogClosed()
       })
