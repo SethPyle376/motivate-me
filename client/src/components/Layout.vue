@@ -12,18 +12,35 @@
         app
         clipped
         >
+            <v-toolbar flat class="transparent">
+                <v-list class="pa-0">
+                    <v-list-item two-line>
+                    <v-list-item-avatar>
+                        <img :src="profile.profilePicture">
+                    </v-list-item-avatar>
+
+                    <v-list-item-content>
+                        <v-list-item-title>Welcome!</v-list-item-title>
+                        <v-list-item-subtitle>{{ profile.firstName }} {{ profile.lastName }}</v-list-item-subtitle>
+                    </v-list-item-content>
+                    </v-list-item>
+                </v-list>
+            </v-toolbar>
             <v-list>
-                <v-list-item
+                <v-list-tile
                     v-for="board in boards"
                     :key="board.id"
                 >
-                    <v-list-item-content>
-                        <v-list-item-title>
+                    <v-list-tile-content>
+                        <v-list-tile-title>
                             {{ board.name }}
-                        </v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
+                        </v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>
             </v-list>
+            <v-btn align="center">
+                Create Board
+            </v-btn>
         </v-navigation-drawer>
         <router-view></router-view>
     </div>
@@ -37,7 +54,12 @@ export default {
     data() {
         return {
             drawer: false,
-            boards: []
+            boards: [],
+            profile: {
+                firstName: "",
+                lastName: "",
+                profilePicture: ""
+            }
         }
     },
     methods: {
@@ -54,10 +76,18 @@ export default {
                     })
                 })
             }
+        },
+        loadProfile: function() {
+            client.get(`/user`).then(response => {
+                this.profile.firstName = response.data.first_name
+                this.profile.lastName = response.data.last_name
+                this.profile.profilePicture = response.data.picture
+            })
         }
     },
     created: function() {
         this.loadBoards()
+        this.loadProfile()
     }
 }
 </script>

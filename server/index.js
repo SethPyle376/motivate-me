@@ -63,6 +63,14 @@ app.get('/api/boards/:userId', async(req, res) => {
     res.send(rows)
 })
 
+app.get('/api/user', async(req, res) => {
+    if (req.headers.verifiedProfile) {
+        res.send(req.headers.verifiedProfile)
+    } else {
+        res.sendStatus(404)
+    }
+})
+
 app.get('/api/board/:boardId', async (req, res) => {
     const rows = await getItems(req.params.boardId)
     res.send(rows)

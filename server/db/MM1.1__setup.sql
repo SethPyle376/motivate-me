@@ -6,6 +6,7 @@ create table if not exists identity.user (
     first_name VARCHAR,
     last_name VARCHAR,
     email VARCHAR,
+    picture VARCHAR,
     created_on TIMESTAMP NOT NULL DEFAULT transaction_timestamp(),
 
     unique(email)

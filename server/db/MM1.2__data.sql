@@ -1,5 +1,5 @@
-insert into identity.user(first_name, last_name, email)
-values ('Seth', 'Pyle', 'seth.pyle86@gmail.com');
+insert into identity.user(first_name, last_name, email, picture)
+values ('Seth', 'Pyle', 'seth.pyle86@gmail.com', 'https://lh3.googleusercontent.com/a-/AOh14GgvwKiCMvLOWOqdRAMQ_ApTEedg3w_cSWA7JYV3Kg=s96-c');
 
 insert into content.board(user_id, name, private)
 values (1, 'Goals', FALSE);

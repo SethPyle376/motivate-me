@@ -12,18 +12,18 @@ const oa2client = new google.google.auth.OAuth2(
 )
 
 const userQuery = `
-select id, first_name, last_name, email from identity.user where email = $1
+select id, first_name, last_name, email, picture from identity.user where email = $1
 `
 
 const userInsert = `
-insert into identity.user(first_name, last_name, email)
+insert into identity.user(first_name, last_name, email, picture)
 VALUES ($1, $2, $3)
 on conflict(email) do nothing
-returning id, first_name, last_name, email;
+returning id, first_name, last_name, email, picture;
 `
 
-const createUser = async (firstName, lastName, email) => {
-    const response = await pool.query(userInsert, [firstName, lastName, email])
+const createUser = async (firstName, lastName, email, picture) => {
+    const response = await pool.query(userInsert, [firstName, lastName, email, picture])
     return response
 }
 
@@ -38,10 +38,11 @@ const login = async (authCode) => {
         throw "error getting oauth2 access token"
     })
     const id = jwt.decode(tokens.id_token)
+    console.log(id)
     var user = await getUser(id.email)
 
     if (!user.rowCount) {
-        user = await createUser(id.given_name, id.family_name, id.email)
+        user = await createUser(id.given_name, id.family_name, id.email, id.picture)
         if (!user.rowCount) {
             throw "error creating user"
         }
